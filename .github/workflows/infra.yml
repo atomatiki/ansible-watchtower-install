@@ -1,4 +1,4 @@
-name: Configure Docker
+name: Configure Watchtower
 
 on:
   workflow_call:

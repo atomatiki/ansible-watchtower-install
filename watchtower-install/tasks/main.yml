@@ -1,0 +1,26 @@
+---
+
+        
+# Start Watchtower
+# --
+#
+- name: Deploy Watchtower
+  become_user: "{{ ansible_user }}"
+  community.docker.docker_container:
+    name: watchtower
+    image: "docker.io/containrrr/watchtower"
+    volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /root/.docker/config.json:/config.json
+    restart_policy: always
+    env:
+      TZ: Africa/Dar_es_Salaam
+      WATCHTOWER_LIFECYCLE_HOOKS: "1" # Enable pre/post-update scripts
+    command: --debug --cleanup --interval 30
+  register: output 
+  ignore_errors: true
+
+- name: Debug output
+  ansible.builtin.debug:
+    var: output
+
