@@ -5,7 +5,6 @@
 # --
 #
 - name: Deploy Watchtower
-  become_user: "{{ ansible_user }}"
   community.docker.docker_container:
     name: watchtower
     image: "docker.io/containrrr/watchtower"
